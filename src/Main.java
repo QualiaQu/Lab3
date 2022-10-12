@@ -4,6 +4,15 @@ import java.util.Scanner;
 
 final class Main {
     public static void main(String[] var0){
+        Stack<Object> test = new Stack<>();
+        test.push(3);
+        test.push(2);
+        test.push(1);
+        test.push(1);
+        test.push(1);
+        test.push("Top");
+
+
         try(FileReader reader = new FileReader("C:\\Users\\Rustam\\IdeaProjects\\Lab3\\src\\input.txt"))
         {
             //1 - Push(elem), 2 - Pop(), 3 - Top(), 4 - isEmpty(), 5 - Print()
@@ -11,7 +20,7 @@ final class Main {
             Scanner scanner = new Scanner(reader);
             var string = scanner.nextLine();
             var af = string.split(" ");
-            Stack<Object> stack = new Stack<>(af.length);
+            Stack<Object> stack = new Stack<>();
             for (var i:af) {
                 if(i.charAt(0) == '1')
                 {

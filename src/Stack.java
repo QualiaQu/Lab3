@@ -1,42 +1,73 @@
-import java.util.ArrayList;
-import java.util.Collections;
-
+class Node<T>{
+    T data;
+    Node<T> next;
+    public void displayNodeData() {
+        System.out.print( data +  " -> ");
+    }
+}
+class LinkedList<T>{
+    private Node<T> head;
+    private int size;
+    public void insertFirst(T data) {
+        Node<T> newNode = new Node<>();
+        newNode.data = data;
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+    public void deleteFirst() {
+        head = head.next;
+    }
+    public T getLast(){
+        return this.head.data;
+    }
+    public void printLinkedList() {
+        Node<T> current = head;
+        while (current != null) {
+            current.displayNodeData();
+            current = current.next;
+        }
+        System.out.print("NULL");
+    }
+    public int getSize(){
+        return size;
+    }
+}
 public final class Stack<T> {
-    private final ArrayList<T> stack;
+    private final LinkedList<T> stack;
     private int top;
-    private final int size;
-
+    private int size;
+    public Stack() {
+        this.stack = new LinkedList<>();
+        this.top = -1;
+    }
     public void push(T elem) {
         ++this.top;
-        this.stack.add(this.top, elem);
+        this.stack.insertFirst(elem);
+        size++;
     }
 
     public T pop() {
-        int elem;
-        this.top = (elem = this.top) - 1;
-        return this.stack.get(elem);
+        T res = this.stack.getLast();
+        this.stack.deleteFirst();
+        return res;
     }
     public void print(){
-        Collections.reverse(this.stack);
-        for(var elem: this.stack){
-            System.out.println(elem);
+        var temp = this.stack;
+        for (int i = 0; i < temp.getSize(); i++){
+            System.out.println(temp.getLast());
+            temp.deleteFirst();
         }
-        Collections.reverse(this.stack);
     }
     public T top() {
-        return this.stack.get(this.top);
+        return this.stack.getLast();
     }
 
     public boolean isEmpty() {
         return this.top == -1;
     }
-
-    public boolean isFull() {
-        return this.top == this.size - 1;
-    }
-    public Stack(int size) {
-        this.size = size;
-        this.stack = new ArrayList<>(size);
-        this.top = -1;
+    public int getSize(){
+        return size;
     }
 }
+

@@ -4,15 +4,18 @@ import java.util.Scanner;
 
 final class Main {
     public static void main(String[] var0){
-        Stack<Object> test = new Stack<>();
-        test.push(3);
-        test.push(2);
-        test.push(1);
-        test.push(1);
-        test.push(1);
-        test.push("Top");
-
-
+        doStackOperation();
+//        Stack<Object> test = new Stack<>();
+//        test.push(4);
+//        test.push(3);
+//        test.push(2);
+//        test.push(1);
+//
+//        test.pop();
+//
+//        test.print();
+    }
+    static void doStackOperation(){
         try(FileReader reader = new FileReader("C:\\Users\\Rustam\\IdeaProjects\\Lab3\\src\\input.txt"))
         {
             //1 - Push(elem), 2 - Pop(), 3 - Top(), 4 - isEmpty(), 5 - Print()
@@ -36,6 +39,7 @@ final class Main {
                     }
                     case ("3") -> {
                         if (!stack.isEmpty()) System.out.println(stack.top());
+                        else System.out.println("Stack is empty");
                         stepCount++;
                     }
                     case ("4") -> {
@@ -43,7 +47,9 @@ final class Main {
                         stepCount++;
                     }
                     case ("5") -> {
+                        System.out.println("------");
                         stack.print();
+                        System.out.println("------");
                         stepCount++;
                     }
                 }

@@ -17,6 +17,7 @@ class LinkedList<T>{
     }
     public void deleteFirst() {
         head = head.next;
+        size--;
     }
     public T getLast(){
         return this.head.data;
@@ -54,7 +55,7 @@ public final class Stack<T> {
     }
     public void print(){
         var temp = this.stack;
-        for (int i = 0; i < temp.getSize(); i++){
+        for (int i = 0; i <= temp.getSize(); i++){
             System.out.println(temp.getLast());
             temp.deleteFirst();
         }

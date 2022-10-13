@@ -1,4 +1,4 @@
-public final class LinkedList<T>{
+public final class OwnLinkedList<T>{
     private Node<T> head;
     private int size;
     public void insertFirst(T data) {

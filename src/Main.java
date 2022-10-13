@@ -16,44 +16,44 @@ final class Main {
         {
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
-            Stack<Double> stack = new Stack<>();
+            OwnStack<Double> ownStack = new OwnStack<>();
             for (var i:commands)
             {
                 if (i.charAt(0) >= '0' && i.charAt(0) <= '9')
                 {
-                    stack.push(Double.parseDouble(i));
+                    ownStack.push(Double.parseDouble(i));
                 }
                 else
                 {
                     switch (i) {
-                        case "+" -> stack.push(stack.pop() + stack.pop());
+                        case "+" -> ownStack.push(ownStack.pop() + ownStack.pop());
                         case "-" -> {
-                            var a = stack.pop();
-                            var b = stack.pop();
-                            stack.push(b - a);
+                            var a = ownStack.pop();
+                            var b = ownStack.pop();
+                            ownStack.push(b - a);
                         }
-                        case "*" -> stack.push(stack.pop() * stack.pop());
+                        case "*" -> ownStack.push(ownStack.pop() * ownStack.pop());
                         case "/", ":" -> {
-                            var a = stack.pop();
-                            var b = stack.pop();
-                            stack.push(b / a);
+                            var a = ownStack.pop();
+                            var b = ownStack.pop();
+                            ownStack.push(b / a);
                         }
                         case "^" -> {
-                            var a = stack.pop();
-                            var b = stack.pop();
-                            stack.push(Math.pow(b, a));
+                            var a = ownStack.pop();
+                            var b = ownStack.pop();
+                            ownStack.push(Math.pow(b, a));
                         }
                         case "ln" -> {
-                            var a = stack.pop();
-                            stack.push(Math.log(a));
+                            var a = ownStack.pop();
+                            ownStack.push(Math.log(a));
                         }
-                        case "cos" -> stack.push(Math.cos(stack.pop()));
-                        case "sin" -> stack.push(Math.sin(stack.pop()));
-                        case "sqrt" -> stack.push(Math.sqrt(stack.pop()));
+                        case "cos" -> ownStack.push(Math.cos(ownStack.pop()));
+                        case "sin" -> ownStack.push(Math.sin(ownStack.pop()));
+                        case "sqrt" -> ownStack.push(Math.sqrt(ownStack.pop()));
                     }
                 }
             }
-            System.out.println(stack.pop());
+            System.out.println(ownStack.pop());
         }
         catch(IOException ex){
             System.out.println(ex.getMessage());
@@ -67,31 +67,31 @@ final class Main {
             int stepCount = 0;
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
-            Stack<Object> stack = new Stack<>();
+            OwnStack<Object> ownStack = new OwnStack<>();
             for (var i:commands) {
                 if(i.charAt(0) == '1')
                 {
-                    stack.push(i.split(",")[1]);
-                    System.out.println(stack.top());
+                    ownStack.push(i.split(",")[1]);
+                    System.out.println(ownStack.top());
                     stepCount++;
                 }
                 switch (i) {
                     case ("2") -> {
-                        System.out.println(stack.pop());
+                        System.out.println(ownStack.pop());
                         stepCount++;
                     }
                     case ("3") -> {
-                        if (!stack.isEmpty()) System.out.println(stack.top());
+                        if (!ownStack.isEmpty()) System.out.println(ownStack.top());
                         else System.out.println("Stack is empty");
                         stepCount++;
                     }
                     case ("4") -> {
-                        System.out.println(stack.isEmpty());
+                        System.out.println(ownStack.isEmpty());
                         stepCount++;
                     }
                     case ("5") -> {
                         System.out.println("------");
-                        stack.print();
+                        ownStack.print();
                         System.out.println("------");
                         stepCount++;
                     }

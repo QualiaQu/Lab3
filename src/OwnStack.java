@@ -1,9 +1,9 @@
-public final class Stack<T> {
-    private final LinkedList<T> stack;
+public final class OwnStack<T> {
+    private final OwnLinkedList<T> stack;
     private int top;
     private int size;
-    public Stack() {
-        this.stack = new LinkedList<>();
+    public OwnStack() {
+        this.stack = new OwnLinkedList<>();
         this.top = -1;
     }
     public void push(T elem) {

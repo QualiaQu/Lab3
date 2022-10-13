@@ -1,30 +1,21 @@
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 final class Main {
-    public static void main(String[] var0){
-        doStackOperation();
-//        Stack<Object> test = new Stack<>();
-//        test.push(4);
-//        test.push(3);
-//        test.push(2);
-//        test.push(1);
-//
-//        test.pop();
-//
-//        test.print();
+    public static void main(String[] args){
+        doStackOperation(new File("input.txt"));
     }
-    static void doStackOperation(){
-        try(FileReader reader = new FileReader("C:\\Users\\Rustam\\IdeaProjects\\Lab3\\src\\input.txt"))
+    static void doStackOperation(File file){
+
+        try(FileReader reader = new FileReader(file.getAbsolutePath()))
         {
-            //1 - Push(elem), 2 - Pop(), 3 - Top(), 4 - isEmpty(), 5 - Print()
             int stepCount = 0;
             Scanner scanner = new Scanner(reader);
-            var string = scanner.nextLine();
-            var af = string.split(" ");
+            var commands = scanner.nextLine().split(" ");
             Stack<Object> stack = new Stack<>();
-            for (var i:af) {
+            for (var i:commands) {
                 if(i.charAt(0) == '1')
                 {
                     var elem = i.split(",");
@@ -57,9 +48,7 @@ final class Main {
             System.out.println();
             System.out.println(stepCount);
         }
-
         catch(IOException ex){
-
             System.out.println(ex.getMessage());
         }
     }

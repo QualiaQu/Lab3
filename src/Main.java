@@ -14,6 +14,7 @@ final class Main {
         ownQueue.add(2);
         ownQueue.add(3);
         System.out.println(ownQueue.getLast());
+        System.out.println("рустам секс");
 
     }
     static void calculatePostfix(File file){

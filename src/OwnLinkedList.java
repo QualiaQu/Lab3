@@ -12,10 +12,13 @@ public final class OwnLinkedList<T>{
         head = head.next;
         size--;
     }
+    public Node<T> getHead(){
+        return this.head;
+    }
     public T getLast() {
         return this.head.data;
     }
-    public void printLinkedList() {
+    public void printLn() {
         Node<T> current = head;
         while (current != null) {
             System.out.println(current.data);

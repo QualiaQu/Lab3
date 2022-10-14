@@ -15,14 +15,11 @@ public final class OwnStack<T> {
     public T pop() {
         T res = this.stack.getLast();
         this.stack.deleteLast();
+        this.top--;
         return res;
     }
-    public void print(){
-        var temp = this.stack;
-        for (int i = 0; i <= temp.getSize(); i++){
-            System.out.println(temp.getLast());
-            temp.deleteLast();
-        }
+    public void printLn(){
+        this.stack.printLn();
     }
     public T top() {
         return this.stack.getLast();

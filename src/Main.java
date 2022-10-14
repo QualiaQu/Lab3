@@ -6,11 +6,16 @@ import java.util.Scanner;
 final class Main {
     public static void main(String[] args){
         //doStackOperation(new File("input.txt"));
+        //calculatePostfix(new File("4task.txt"));
 
-        calculatePostfix(new File("4task.txt"));
+
+        OwnQueue<Integer> ownQueue = new OwnQueue<>();
+        ownQueue.add(1);
+        ownQueue.add(2);
+        ownQueue.add(3);
+        System.out.println(ownQueue.getLast());
+
     }
-
-
     static void calculatePostfix(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath()))
         {
@@ -91,7 +96,7 @@ final class Main {
                     }
                     case ("5") -> {
                         System.out.println("------");
-                        ownStack.print();
+                        ownStack.printLn();
                         System.out.println("------");
                         stepCount++;
                     }

@@ -9,13 +9,11 @@ final class Main {
         //calculatePostfix(new File("4task.txt"));
 
 
-        OwnQueue<Integer> ownQueue = new OwnQueue<>();
+        OwnQueue<Object> ownQueue = new OwnQueue<>();
         ownQueue.add(1);
         ownQueue.add(2);
-        ownQueue.add(3);
-        System.out.println(ownQueue.getLast());
-        System.out.println("рустам секс");
-
+        ownQueue.add("cat");
+        ownQueue.printLn();
     }
     static void calculatePostfix(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath()))

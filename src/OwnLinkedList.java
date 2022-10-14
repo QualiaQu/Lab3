@@ -1,25 +1,25 @@
 public final class OwnLinkedList<T>{
-    private Node<T> head;
+    private Node<T> tail;
     private int size;
     public void insertFirst(T data) {
         Node<T> newNode = new Node<>();
         newNode.data = data;
-        newNode.next = head;
-        head = newNode;
+        newNode.next = tail;
+        tail = newNode;
         size++;
     }
     public void deleteLast() {
-        head = head.next;
+        tail = tail.next;
         size--;
     }
-    public Node<T> getHead(){
-        return this.head;
+    public Node<T> getTail(){
+        return this.tail;
     }
     public T getLast() {
-        return this.head.data;
+        return this.tail.data;
     }
     public void printLn() {
-        Node<T> current = head;
+        Node<T> current = tail;
         while (current != null) {
             System.out.println(current.data);
             current = current.next;

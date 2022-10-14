@@ -1,5 +1,5 @@
 public class OwnDoubleLinkedList<T> {
-    private static class DoubleNode<T> {
+    static class DoubleNode<T> {
         DoubleNode<T> prev;
         DoubleNode<T> next;
         T data;
@@ -29,8 +29,15 @@ public class OwnDoubleLinkedList<T> {
     public T getHead() {
         return this.head.data;
     }
-
-    public T getTail() {
-        return this.tail.data;
+    public void removeHead(){
+        this.head = this.head.next;
+        size--;
     }
+    public int getSize(){
+        return this.size;
+    }
+    public boolean isEmpty(){
+        return getSize() == 0;
+    }
+
 }

@@ -5,16 +5,48 @@ import java.util.Scanner;
 
 final class Main {
     public static void main(String[] args){
-        //doStackOperation(new File("input.txt"));
+        //doStackOperation(new File("inputStack.txt"));
         //calculatePostfix(new File("4task.txt"));
+        doQueueOperation(new File("inputQueue.txt"));
 
 
-        OwnStack<Object> stack = new OwnStack<>();
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
+    }
+
+    static void doQueueOperation(File file){
+        try(FileReader reader = new FileReader(file.getAbsolutePath()))
+        {
+            Scanner scanner = new Scanner(reader);
+            var commands = scanner.nextLine().split(" ");
+            OwnQueue<Object> ownQueue = new OwnQueue<>();
+            for (var i:commands)
+            {
+                if(i.charAt(0) == '1')
+                {
+                    ownQueue.add(i.split(",")[1]);
+                    System.out.println(ownQueue.getLast());
+                }
+                else
+                {
+                    switch (i) {
+                            case "2" -> {
+                                if (ownQueue.isEmpty()) System.out.println("the queue is empty");
+                                else {
+                                    var deleted = ownQueue.getFirst();
+                                    ownQueue.removeFirst();
+                                    System.out.println("deleted -> " + deleted);
+                                }
+                            }
+                            case "3" -> ownQueue.printFirst();
+                            case "4" -> System.out.println(ownQueue.isEmpty());
+                            case "5" -> ownQueue.printLn();
+                    }
+                }
+            }
+            //System.out.println(ownStack.());
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
     static void calculatePostfix(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath()))

@@ -14,6 +14,9 @@ public final class OwnQueue<T>{
     public T getFirst() {
         return this.queue.getHead();
     }
+    public T getLast() {
+        return this.queue.getTail();
+    }
 
     public void removeFirst(){
         this.queue.removeHead();
@@ -21,7 +24,7 @@ public final class OwnQueue<T>{
     }
 
     public boolean isEmpty() {
-        return this.size == 0;
+        return this.queue.isEmpty();
     }
     public void printFirst(){
         if (isEmpty()) System.out.println("the queue is empty");
@@ -30,13 +33,14 @@ public final class OwnQueue<T>{
     public void printLn(){
         if (isEmpty()) System.out.println("the queue is empty");
         else {
+            var temp = this.queue;
             StringBuilder result = new StringBuilder();
-            while(this.queue.getSize() != 0){
+            while(temp.getSize() != 0){
                 result.append(getFirst()).append(" -> ");
-                removeFirst();
+                temp.removeHead();
             }
             result.delete(result.length() - 4, result.length());
-            System.out.print(result);
+            System.out.println(result);
         }
     }
 }

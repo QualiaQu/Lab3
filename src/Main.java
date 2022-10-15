@@ -8,11 +8,19 @@ final class Main {
         //doStackOperation(new File("inputStack.txt"));
         //calculatePostfix(new File("4task.txt"));
         //doQueueOperation(new File("inputQueue.txt"));
+        //var firstList = readDoubleLinkedList(new File("firstList.txt"));
+        //var secondList = readDoubleLinkedList(new File("secondList.txt"));
+        //firstList.addList(secondList);
+        //firstList.printLn();
+        //5 6 8 10 11
 
-        var firstList = readDoubleLinkedList(new File("firstList.txt"));
-        var secondList = readDoubleLinkedList(new File("secondList.txt"));
-        firstList.addList(secondList);
-        firstList.printLn();
+        OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.doubleList();
+        list.printLn();
+        System.out.println();
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

@@ -176,4 +176,28 @@ public class OwnDoubleLinkedList<T>{
         }
         else System.out.println("list is empty");
     }
+    private OwnDoubleLinkedList<T> copy(){
+        OwnDoubleLinkedList<T> resultList = new OwnDoubleLinkedList<>();
+        if (!isEmpty()){
+            var current = this.head;
+            while (current != null){
+                resultList.add(current.data);
+                current = current.next;
+            }
+        }
+        else System.out.println("list is empty");
+        return resultList;
+    }
+
+    public void doubleList(){
+        if (!isEmpty()){
+            var copied = this.copy().head;
+            while (copied != null){
+                this.add(copied.data);
+                copied = copied.next;
+            }
+        }
+        else System.out.println("list is empty");
+    }
+
 }

@@ -1,11 +1,8 @@
 public class OwnDoubleLinkedList<T>{
-
     static class DoubleNode<T> {
         DoubleNode<T> prev;
         DoubleNode<T> next;
         T data;
-
-
     }
 
     private DoubleNode<T> head;
@@ -141,8 +138,6 @@ public class OwnDoubleLinkedList<T>{
     }
     public void moveElementsInList(T firstElement,T secondElement ){
         var currentNode = tail;
-        var firstNode = head;
-        //while (currentNode != firstNode)
         for (int i = 0; i < getSize(); i++)
         {
             if (currentNode.data == firstElement) {
@@ -153,7 +148,21 @@ public class OwnDoubleLinkedList<T>{
             }
             currentNode = currentNode.prev;
         }
-
     }
-
+    public void removeAll(T element){
+        if (!isEmpty()){
+            var current = this.head;
+            while (current != null){
+                if (current.data == element){
+                    if(current.next != null) current.next.prev = current.prev;
+                    else tail = current.prev;
+                    if(current.prev != null) current.prev.next = current.next;
+                    else head = current.next;
+                    size--;
+                }
+                current = current.next;
+            }
+        }
+        else System.out.println("list is empty");
+    }
 }

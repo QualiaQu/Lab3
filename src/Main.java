@@ -1,5 +1,3 @@
-import org.w3c.dom.css.ElementCSSInlineStyle;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,12 +11,14 @@ final class Main {
 
         OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
         list.add(1);
+        list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
         list.add(6);
-        list.moveElementsInList(1, 6);
+        list.removeAll(1);
+        list.removeAll(6);
         list.printLn();
 
 
@@ -120,7 +120,7 @@ final class Main {
                 if(i.charAt(0) == '1')
                 {
                     ownStack.push(i.split(",")[1]);
-                    System.out.println(ownStack.top());
+                    System.out.println(ownStack.peek());
                     stepCount++;
                 }
                 switch (i) {
@@ -129,7 +129,7 @@ final class Main {
                         stepCount++;
                     }
                     case ("3") -> {
-                        if (!ownStack.isEmpty()) System.out.println(ownStack.top());
+                        if (!ownStack.isEmpty()) System.out.println(ownStack.peek());
                         else System.out.println("Stack is empty");
                         stepCount++;
                     }

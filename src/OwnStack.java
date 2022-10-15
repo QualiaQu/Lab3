@@ -25,7 +25,7 @@ public final class OwnStack<T> {
     public void printLn(){
         this.stack.printLn();
     }
-    public T top() {
+    public T peek() {
         return this.stack.head.data;
     }
 

@@ -18,8 +18,6 @@ final class Main {
         list.add(4);
         list.add(0);
         System.out.println(list.getUnique());
-
-
     }
 
     static void doQueueOperation(File file){

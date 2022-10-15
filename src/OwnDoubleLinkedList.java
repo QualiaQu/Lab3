@@ -48,6 +48,12 @@ public class OwnDoubleLinkedList<T>{
     public boolean isEmpty(){
         return getSize() == 0;
     }
+    public void clear()
+    {
+        head = null;
+        tail = null;
+        size = 0;
+    }
 
     public void reverse(){
         var node = this.head;
@@ -136,7 +142,7 @@ public class OwnDoubleLinkedList<T>{
         }
         else System.out.println("list is empty");
     }
-    public void moveElementsInList(T firstElement,T secondElement ){
+    public void replaceElements(T firstElement, T secondElement ){
         var currentNode = tail;
         for (int i = 0; i < getSize(); i++)
         {
@@ -167,14 +173,11 @@ public class OwnDoubleLinkedList<T>{
     }
 
     public void addList(OwnDoubleLinkedList<T> list){
-        if (!isEmpty()){
-            var current = list.head;
-            while (current != null){
-                this.add(current.data);
-                current = current.next;
-            }
+        var current = list.head;
+        while (current != null){
+            this.add(current.data);
+            current = current.next;
         }
-        else System.out.println("list is empty");
     }
     private OwnDoubleLinkedList<T> copy(){
         OwnDoubleLinkedList<T> resultList = new OwnDoubleLinkedList<>();
@@ -191,10 +194,35 @@ public class OwnDoubleLinkedList<T>{
 
     public void doubleList(){
         if (!isEmpty()){
-            var copied = this.copy().head;
-            while (copied != null){
-                this.add(copied.data);
-                copied = copied.next;
+            var duplicate = this.copy().head;
+            while (duplicate != null){
+                this.add(duplicate.data);
+                duplicate = duplicate.next;
+            }
+        }
+        else System.out.println("list is empty");
+    }
+
+    public void insertListAfter(T x){
+        OwnDoubleLinkedList<T> result = new OwnDoubleLinkedList<>();
+        var copy = this.copy();
+        this.clear();
+        if (!copy.isEmpty()){
+            var current = copy.copy();
+            while (current.head != null){
+                this.add(current.head.data);
+                if (current.head.data == x){
+                    OwnDoubleLinkedList<T> secondPart = new OwnDoubleLinkedList<>();
+                    var temp = current.head.next;
+                    while (temp != null){
+                        secondPart.add(temp.data);
+                        temp = temp.next;
+                    }
+                    this.addList(copy);
+                    this.addList(secondPart);
+                    break;
+                }
+                current.head = current.head.next;
             }
         }
         else System.out.println("list is empty");

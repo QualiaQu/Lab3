@@ -12,15 +12,17 @@ final class Main {
         //var secondList = readDoubleLinkedList(new File("secondList.txt"));
         //firstList.addList(secondList);
         //firstList.printLn();
-        //5 6 8 10 11
+        //6 8 10
 
         OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
-        list.doubleList();
+        list.add(4);
         list.printLn();
         System.out.println();
+        list.insertListAfter(2);
+        list.printLn();
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

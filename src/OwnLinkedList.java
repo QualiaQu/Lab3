@@ -1,23 +1,32 @@
 public final class OwnLinkedList<T>{
-    private Node<T> head;
+    public Node<T> head;
+    public Node<T> tail;
     private int size;
-    public void insertFirst(T data) {
-        Node<T> newNode = new Node<>();
-        newNode.data = data;
-        newNode.next = head;
-        head = newNode;
+
+    public void add(T data){
+        Node<T> node = new Node<>();
+        node.data = data;
+        if (head == null) head = node;
+        else tail.next = node;
+        tail = node;
+
         size++;
     }
-    public void deleteLast() {
-        head = head.next;
-        size--;
+
+    public void insertFirst(T data){
+        Node<T> node = new Node<T>();
+        node.data = data;
+        node.next = this.head;
+        this.head = node;
+        if (size == 0)
+            tail = head;
+        size++;
     }
-    public Node<T> getHead(){
-        return this.head;
+
+    public int getSize() {
+        return size;
     }
-    public T getLast() {
-        return this.head.data;
-    }
+
     public void printLn() {
         Node<T> current = head;
         while (current != null) {
@@ -25,7 +34,8 @@ public final class OwnLinkedList<T>{
             current = current.next;
         }
     }
-    public int getSize() {
-        return size;
+
+    public boolean isEmpty(){
+        return this.size == 0;
     }
 }

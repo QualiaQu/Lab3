@@ -12,9 +12,13 @@ public final class OwnStack<T> {
         size++;
     }
 
+    private void deleteLast() {
+        this.stack.head = this.stack.head.next;
+        this.size--;
+    }
     public T pop() {
-        T res = this.stack.getLast();
-        this.stack.deleteLast();
+        T res = this.stack.head.data;
+        this.deleteLast();
         this.top--;
         return res;
     }
@@ -22,7 +26,7 @@ public final class OwnStack<T> {
         this.stack.printLn();
     }
     public T top() {
-        return this.stack.getLast();
+        return this.stack.head.data;
     }
 
     public boolean isEmpty() {

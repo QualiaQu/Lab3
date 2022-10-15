@@ -7,8 +7,7 @@ final class Main {
     public static void main(String[] args){
         //doStackOperation(new File("inputStack.txt"));
         //calculatePostfix(new File("4task.txt"));
-        doQueueOperation(new File("inputQueue.txt"));
-
+        //doQueueOperation(new File("inputQueue.txt"));
 
     }
 

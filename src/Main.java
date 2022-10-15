@@ -14,15 +14,17 @@ final class Main {
         //firstList.printLn();
         //6 8 10
 
+
+        OwnDoubleLinkedList[] result;
         OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
-        list.printLn();
+        result = list.splitByTwo(2);
+        result[0].printLn();
         System.out.println();
-        list.insertListAfter(2);
-        list.printLn();
+        result[1].printLn();
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

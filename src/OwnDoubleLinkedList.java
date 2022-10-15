@@ -204,7 +204,6 @@ public class OwnDoubleLinkedList<T>{
     }
 
     public void insertListAfter(T x){
-        OwnDoubleLinkedList<T> result = new OwnDoubleLinkedList<>();
         var copy = this.copy();
         this.clear();
         if (!copy.isEmpty()){
@@ -228,4 +227,35 @@ public class OwnDoubleLinkedList<T>{
         else System.out.println("list is empty");
     }
 
+    public OwnDoubleLinkedList[] splitByTwo(T x){
+        OwnDoubleLinkedList[] result = new OwnDoubleLinkedList[2];
+        var copy = this.copy();
+        this.clear();
+        boolean exit = false;
+        if (!copy.isEmpty()){
+            var current = copy.copy();
+            while (current.head != null){
+                this.add(current.head.data);
+                if (current.head.data == x){
+                    OwnDoubleLinkedList<T> secondPart = new OwnDoubleLinkedList<>();
+                    var temp = current.head.next;
+                    while (temp != null){
+                        secondPart.add(temp.data);
+                        temp = temp.next;
+                    }
+                    result[0] = this;
+                    result[1] = secondPart;
+                    exit = true;
+                    break;
+                }
+                current.head = current.head.next;
+            }
+            if (!exit){
+                result[0] = copy;
+                result[1] = new OwnDoubleLinkedList();
+            }
+        }
+        else System.out.println("list is empty");
+        return result;
+    }
 }

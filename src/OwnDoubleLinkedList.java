@@ -1,4 +1,5 @@
-public class OwnDoubleLinkedList<T> {
+public class OwnDoubleLinkedList<T>{
+
     static class DoubleNode<T> {
         DoubleNode<T> prev;
         DoubleNode<T> next;
@@ -109,4 +110,50 @@ public class OwnDoubleLinkedList<T> {
 
         return result;
     }
+
+    public void deleteSecond(){
+        if (!isEmpty()){
+            boolean exit = false;
+            var start = this;
+            var current = this.head;
+            while (current != null){
+                var data = current.data;
+                var temp = start.head;
+                int count = 0;
+                while (temp != null){
+                    if (data == temp.data) count++;
+                    if (count == 2) {
+                        temp.prev.next = temp.next;
+                        if(temp.next != null) temp.next.prev = temp.prev;
+                        temp.next = null;
+                        temp.prev = null;
+                        size--;
+                        count = 0;
+                        exit = true;
+                    }
+                    temp = temp.next;
+                    if(exit) break;
+                }
+                current = current.next;
+            }
+        }
+        else System.out.println("list is empty");
+    }
+    public void moveElementsInList(T firstElement,T secondElement ){
+        var currentNode = tail;
+        var firstNode = head;
+        //while (currentNode != firstNode)
+        for (int i = 0; i < getSize(); i++)
+        {
+            if (currentNode.data == firstElement) {
+                currentNode.data = secondElement;
+            }
+            else if (currentNode.data == secondElement){
+                currentNode.data = firstElement;
+            }
+            currentNode = currentNode.prev;
+        }
+
+    }
+
 }

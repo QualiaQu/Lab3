@@ -21,6 +21,7 @@ final class Main {
 
 
         System.out.println("TEST");
+        System.out.println("TEST");
     }
 
     static void doQueueOperation(File file){

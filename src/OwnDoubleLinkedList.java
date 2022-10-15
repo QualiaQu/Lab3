@@ -165,4 +165,15 @@ public class OwnDoubleLinkedList<T>{
         }
         else System.out.println("list is empty");
     }
+
+    public void addList(OwnDoubleLinkedList<T> list){
+        if (!isEmpty()){
+            var current = list.head;
+            while (current != null){
+                this.add(current.data);
+                current = current.next;
+            }
+        }
+        else System.out.println("list is empty");
+    }
 }

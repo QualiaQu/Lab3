@@ -9,21 +9,27 @@ final class Main {
         //calculatePostfix(new File("4task.txt"));
         //doQueueOperation(new File("inputQueue.txt"));
 
-        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
-        list.add(1);
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
-        list.removeAll(1);
-        list.removeAll(6);
-        list.printLn();
-
-
+        var firstList = readDoubleLinkedList(new File("firstList.txt"));
+        var secondList = readDoubleLinkedList(new File("secondList.txt"));
+        firstList.addList(secondList);
+        firstList.printLn();
     }
 
+    static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){
+        OwnDoubleLinkedList<Object> resultList = new OwnDoubleLinkedList<>();
+        try(FileReader reader = new FileReader(file.getAbsolutePath()))
+        {
+            Scanner scanner = new Scanner(reader);
+            var objects = scanner.nextLine().split(" ");
+            for (var object: objects){
+                resultList.add(object);
+            }
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultList;
+    }
     static void doQueueOperation(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath()))
         {

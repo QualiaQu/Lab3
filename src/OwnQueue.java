@@ -7,7 +7,7 @@ public final class OwnQueue<T>{
         this.queue = new OwnDoubleLinkedList<>();
     }
     public void add(T e) {
-        this.queue.Add(e);
+        this.queue.add(e);
         size++;
     }
 

@@ -1,3 +1,5 @@
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +11,13 @@ final class Main {
         //calculatePostfix(new File("4task.txt"));
         //doQueueOperation(new File("inputQueue.txt"));
 
+        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(0);
+        System.out.println(list.getUnique());
     }
 
     static void doQueueOperation(File file){
@@ -41,7 +50,6 @@ final class Main {
                     }
                 }
             }
-            //System.out.println(ownStack.());
         }
         catch(IOException ex){
             System.out.println(ex.getMessage());

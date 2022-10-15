@@ -3,16 +3,6 @@ public final class OwnLinkedList<T>{
     public Node<T> tail;
     private int size;
 
-    public void add(T data){
-        Node<T> node = new Node<>();
-        node.data = data;
-        if (head == null) head = node;
-        else tail.next = node;
-        tail = node;
-
-        size++;
-    }
-
     public void insertFirst(T data){
         Node<T> node = new Node<T>();
         node.data = data;
@@ -37,5 +27,27 @@ public final class OwnLinkedList<T>{
 
     public boolean isEmpty(){
         return this.size == 0;
+    }
+
+    public void add(T data){
+        Node<T> node = new Node<>();
+        node.data = data;
+        if (head == null) head = node;
+        else tail.next = node;
+        tail = node;
+
+        size++;
+    }
+
+    public void reverse(){
+        var node = this.head;
+        Node<T> previous = null;
+        while(node != null){
+            var tmp = node.next;
+            node.next = previous;
+            previous = node;
+            this.head = node;
+            node = tmp;
+        }
     }
 }

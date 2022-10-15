@@ -91,20 +91,7 @@ public class OwnDoubleLinkedList<T> {
     public int getUnique(){
         int result = 0;
         if (!isEmpty()) {
-            var start = this.head;
-            var current = this.head;
-            while (current != null) {
-                var temp = current.data;
-                var current2 = current.next;
-                int count = 0;
-                while (current2 != null){
-                    if (temp == current2.data) break;
-                    else count++;
-                    current2 = current2.next;
-                }
-                if (count == this.getSize() - 1) result++;
-                current = current.next;
-            }
+
         }
         else System.out.println("list is empty");
 

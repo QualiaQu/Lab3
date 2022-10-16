@@ -5,16 +5,14 @@ import java.util.Scanner;
 
 final class Main {
     public static void main(String[] args){
-        //doStackOperation(new File("inputStack.txt"));
-        //calculatePostfix(new File("4task.txt"));
-        //doQueueOperation(new File("inputQueue.txt"));
-        //var firstList = readDoubleLinkedList(new File("firstList.txt"));
-        //var secondList = readDoubleLinkedList(new File("secondList.txt"));
-        //firstList.addList(secondList);
-        //firstList.printLn();
-        //6 8 10
-
-
+        /*doStackOperation(new File("inputStack.txt"));
+        calculatePostfix(new File("4task.txt"));
+        doQueueOperation(new File("inputQueue.txt"));
+        var firstList = readDoubleLinkedList(new File("firstList.txt"));
+        var secondList = readDoubleLinkedList(new File("secondList.txt"));
+        firstList.addList(secondList);
+        firstList.printLn();*/
+        /* task10
         OwnDoubleLinkedList[] result;
         OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
         list.add(1);
@@ -24,7 +22,17 @@ final class Main {
         result = list.splitByTwo(2);
         result[0].printLn();
         System.out.println();
-        result[1].printLn();
+        result[1].printLn();*/
+        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        list.add(5);
+        list.insertInOrder(6);
+        list.printLn();
+
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

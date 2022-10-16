@@ -258,4 +258,29 @@ public class OwnDoubleLinkedList<T>{
         else System.out.println("list is empty");
         return result;
     }
+
+    public void insertInOrder(T x){
+        if (!isEmpty()){
+            var copy = this.copy();
+            this.clear();
+            var current = copy.head;
+            while (current != null){
+                this.add(current.data);
+                if (current.next != null && current.data == x && current.next.data != x){
+                    this.add(x);
+                } else if (current.next == null && current.data == x) {
+                    this.add(x);
+                } else if (current.next != null && (int)current.data < (int)x && ((int)current.next.data > (int)x)) {
+                    this.add(x);
+                } else if (current.next == null && (int)current.data < (int)x) {
+                    this.add(x);
+                }
+                current = current.next;
+            }
+            if ((int)this.head.data > (int)x) {
+                this.insertFirst(x);
+            }
+        }
+        else System.out.println("list is empty");
+    }
 }

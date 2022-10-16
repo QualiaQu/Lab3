@@ -31,7 +31,6 @@ final class Main {
         list.add(5);
         list.insertFBeforeE(1000,6);
         list.printLn();
-
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

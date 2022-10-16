@@ -25,12 +25,11 @@ final class Main {
         result[1].printLn();*/
         OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
         list.add(1);
+        list.add(1);
         list.add(2);
-        list.add(2);
-        list.add(3);
         list.add(3);
         list.add(5);
-        list.insertInOrder(6);
+        list.insertFBeforeE(1000,6);
         list.printLn();
 
     }

@@ -261,9 +261,8 @@ public class OwnDoubleLinkedList<T>{
 
     public void insertInOrder(T x){
         if (!isEmpty()){
-            var copy = this.copy();
+            var current = this.copy().head;
             this.clear();
-            var current = copy.head;
             while (current != null){
                 this.add(current.data);
                 if (current.next != null && current.data == x && current.next.data != x){
@@ -279,6 +278,28 @@ public class OwnDoubleLinkedList<T>{
             }
             if ((int)this.head.data > (int)x) {
                 this.insertFirst(x);
+            }
+        }
+        else System.out.println("list is empty");
+    }
+
+    public void insertFBeforeE(T elem, T before){
+        if (!isEmpty()){
+            var current = this.copy().head;
+            this.clear();
+            boolean insertDone = false;
+            while (current != null){
+                if (insertDone){
+                    this.add(current.data);
+                }
+                else {
+                    if (current.data == before) {
+                        this.add(elem);
+                        this.add(current.data);
+                        insertDone = true;
+                    } else this.add(current.data);
+                }
+                current = current.next;
             }
         }
         else System.out.println("list is empty");

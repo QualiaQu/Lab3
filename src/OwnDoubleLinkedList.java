@@ -5,6 +5,10 @@ public class OwnDoubleLinkedList<T>{
         T data;
     }
 
+    public DoubleNode<T> getHead() {
+        return head;
+    }
+
     private DoubleNode<T> head;
     private DoubleNode<T> tail;
     private int size;
@@ -32,7 +36,7 @@ public class OwnDoubleLinkedList<T>{
         size++;
     }
 
-    public T getHead() {
+    public T getHeadData() {
         return this.head.data;
     }
     public T getTail() {

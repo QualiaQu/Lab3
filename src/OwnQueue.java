@@ -1,6 +1,10 @@
 public final class OwnQueue<T>{
     private final OwnDoubleLinkedList<T> queue;
 
+    public int getSize() {
+        return size;
+    }
+
     private int size;
 
     public OwnQueue() {
@@ -12,7 +16,7 @@ public final class OwnQueue<T>{
     }
 
     public T getFirst() {
-        return this.queue.getHead();
+        return this.queue.getHeadData();
     }
     public T getLast() {
         return this.queue.getTail();
@@ -42,5 +46,17 @@ public final class OwnQueue<T>{
             result.delete(result.length() - 4, result.length());
             System.out.println(result);
         }
+    }
+
+    public OwnQueue<T> copy() {
+        OwnQueue<T> resultQueue = new OwnQueue<>();
+        if (!isEmpty()) {
+            var current = this.queue.getHead();
+            while (current != null) {
+                resultQueue.add(current.data);
+                current = current.next;
+            }
+        }
+        return resultQueue;
     }
 }

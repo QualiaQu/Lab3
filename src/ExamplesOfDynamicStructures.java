@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ExamplesOfDynamicStructures {
     static OwnStack<Integer> sortStack(OwnStack<Integer> input)
@@ -106,37 +107,104 @@ public class ExamplesOfDynamicStructures {
 //            System.out.println("Pattern found in the given text String at positions: " + foundIndexes.stream().map(Object::toString).collect(Collectors.joining(", ")));
 //        }
 
-        ProductReceipt receipt = new ProductReceipt();
-        receipt.addToReceipt(new Product("хлеб", 30));
-        receipt.addToReceipt(new Product("молоко", 50));
-        receipt.addToReceipt(new Product("колбаса", 200));
-        System.out.println(receipt);
+//        ProductReceipt receipt = new ProductReceipt();
+//        receipt.addToReceipt(new Product("хлеб", 30));
+//        receipt.addToReceipt(new Product("молоко", 50));
+//        receipt.addToReceipt(new Product("колбаса", 200));
+//        System.out.println(receipt);
+
+        CallCenter callCenter = new CallCenter(3);
+        callCenter.newClient(new Client("1"));
+        callCenter.newClient(new Client("2"));
+        callCenter.newClient(new Client("3"));
+        callCenter.newClient(new Client("4"));
+        callCenter.newClient(new Client("5"));
+        callCenter.newClient(new Client("6"));
+        callCenter.printQueue();
     }
 }
-class ProductReceipt{
-    private int amount;
-    private final ArrayList<Product> receipt;
-    private Product product;
 
-    public ArrayList<Product> getReceipt(){
+class CallCenter{
+    private final int numberOfOperators;
+    private int numberOfClients;
+    private final OwnQueue<Client> clientQueue;
+    public void printQueue(){
+        var current = this.clientQueue.copy();
+        var queueSize = current.getSize();
+        while (queueSize > 0){
+            System.out.println(current.getFirst().problem());
+            current.removeFirst();
+            queueSize--;
+        }
+    }
+    public CallCenter(int numberOfOperators){
+        this.numberOfOperators = numberOfOperators;
+        clientQueue = new OwnQueue<>();
+    }
+    public void newClient(Client client){
+        if (numberOfClients >= numberOfOperators){
+            this.clientQueue.add(client);
+        }
+        this.numberOfClients++;
+    }
+    public void callEnded(){
+        this.numberOfClients--;
+        this.clientQueue.removeFirst();
+    }
+
+}
+
+final class Client {
+    private final String problem;
+
+    Client(String problem) {
+        this.problem = problem;
+    }
+
+    public String problem() {
+        return problem;
+    }
+}
+
+final class Product {
+    private final String name;
+    private final double price;
+
+    Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public double price() {
+        return price;
+    }
+}
+
+class ProductReceipt{
+    private final OwnLinkedList<Product> receipt;
+
+    public OwnLinkedList<Product> getReceipt(){
         return this.receipt;
     }
     public void addToReceipt(Product product){
         this.receipt.add(product);
     }
     public ProductReceipt() {
-        receipt = new ArrayList<>();
+        receipt = new OwnLinkedList<>();
     }
 
+    @Override
     public String toString(){
         StringBuilder result = new StringBuilder("Ваш чек:\n");
-        for(var position: this.receipt){
-            result.append("Название товара: ").append(position.name()).append(". ").append("Цена = ").append(position.price()).append(" рублей\n");
+        var current = receipt.head;
+        while(current != null){
+            result.append("Название товара: ").append(current.data.name()).append(". ").append("Цена = ").append(current.data.price()).append(" рублей\n");
+            current = current.next;
         }
         return result.toString();
     }
-}
-
-record Product(String name, double price) {
-
 }

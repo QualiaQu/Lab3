@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ExamplesOfDynamicStructures {
     static OwnStack<Integer> sortStack(OwnStack<Integer> input)
@@ -92,27 +91,30 @@ public class ExamplesOfDynamicStructures {
     }
     public static void main(String[] args)
     {
-//        int []arr = {10, 5, 15, 45};
-//        int n = arr.length;
-//        sortArrayUsingStacks(arr, n);
-//        for (int j : arr) System.out.print(j + " ");
-//        String pattern = "AAAAAAA";
-//        String text = "AAAAAAAAA";
-//
-//        List<Integer> foundIndexes = performKMPSearch(text, pattern);
-//
-//        if (foundIndexes.isEmpty()) {
-//            System.out.println("Pattern not found in the given text String");
-//        } else {
-//            System.out.println("Pattern found in the given text String at positions: " + foundIndexes.stream().map(Object::toString).collect(Collectors.joining(", ")));
-//        }
+        /* Сортировка стеком
+        int []arr = {10, 5, 15, 45};
+        int n = arr.length;
+        sortArrayUsingStacks(arr, n);
+        for (int j : arr) System.out.print(j + " ");
+        String pattern = "AAAAAAA";
+        String text = "AAAAAAAAA";
 
-//        ProductReceipt receipt = new ProductReceipt();
-//        receipt.addToReceipt(new Product("хлеб", 30));
-//        receipt.addToReceipt(new Product("молоко", 50));
-//        receipt.addToReceipt(new Product("колбаса", 200));
-//        System.out.println(receipt);
+        List<Integer> foundIndexes = performKMPSearch(text, pattern);
 
+        if (foundIndexes.isEmpty()) {
+            System.out.println("Pattern not found in the given text String");
+        } else {
+            System.out.println("Pattern found in the given text String at positions: " + foundIndexes.stream().map(Object::toString).collect(Collectors.joining(", ")));
+        }*/
+
+        /* Реализация списка, кассовый аппарат
+        ProductReceipt receipt = new ProductReceipt();
+        receipt.addToReceipt(new Product("хлеб", 30));
+        receipt.addToReceipt(new Product("молоко", 50));
+        receipt.addToReceipt(new Product("колбаса", 200));
+        System.out.println(receipt);*/
+
+        /* Реализация очереди ,очередь звонков
         CallCenter callCenter = new CallCenter(3);
         callCenter.newClient(new Client("1"));
         callCenter.newClient(new Client("2"));
@@ -120,7 +122,20 @@ public class ExamplesOfDynamicStructures {
         callCenter.newClient(new Client("4"));
         callCenter.newClient(new Client("5"));
         callCenter.newClient(new Client("6"));
-        callCenter.printQueue();
+        callCenter.printQueue();*/
+
+        /* сортировка бинарным деревом поиска
+        int[] arr = {50, 30, 70, 15, 7, 62, 22, 35, 87, 22, 31};
+        System.out.println("Original array- " + Arrays.toString(arr));
+        Tree tree = new Tree(arr[0]);
+        for(int num : arr){
+            tree.insert(tree.node, num);
+        }
+        System.out.println("Sorted Array (Ascending)- ");
+        tree.inOrder(tree.node);
+        System.out.println();
+        System.out.println("Sorted Array (Descending)- ");
+        tree.inOrderDesc(tree.node);*/
     }
 }
 
@@ -151,7 +166,6 @@ class CallCenter{
         this.numberOfClients--;
         this.clientQueue.removeFirst();
     }
-
 }
 
 final class Client {
@@ -206,5 +220,49 @@ class ProductReceipt{
             current = current.next;
         }
         return result.toString();
+    }
+}
+class BinaryTreeNode{
+    int value;
+    BinaryTreeNode left;
+    BinaryTreeNode right;
+    BinaryTreeNode(int value){
+        this.value = value;
+        left = null;
+        right = null;
+    }
+}
+
+class Tree{
+    BinaryTreeNode node;
+    Tree(int value){
+        node = new BinaryTreeNode(value);
+    }
+    public BinaryTreeNode insert(BinaryTreeNode node, int value){
+        if(node == null){
+            return new BinaryTreeNode(value);
+        }
+        if(value < node.value){
+            node.left = insert(node.left, value);
+        } else if(value > node.value){
+            node.right = insert(node.right, value);
+        }
+        return node;
+    }
+
+    public void inOrder(BinaryTreeNode node){
+        if(node != null){
+            inOrder(node.left);
+            System.out.print(node.value + " ");
+            inOrder(node.right);
+        }
+    }
+
+    public void inOrderDesc(BinaryTreeNode node){
+        if(node != null){
+            inOrderDesc(node.right);
+            System.out.print(node.value + " ");
+            inOrderDesc(node.left);
+        }
     }
 }

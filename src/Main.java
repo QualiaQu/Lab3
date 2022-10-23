@@ -1,10 +1,12 @@
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 final class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         /*doStackOperation(new File("inputStack.txt"));
         calculatePostfix(new File("4task.txt"));
         doQueueOperation(new File("inputQueue.txt"));
@@ -23,19 +25,22 @@ final class Main {
         result[0].printLn();
         System.out.println();
         result[1].printLn();*/
-        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
-        list.add(1);
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(5);
-        list.insertFBeforeE(1000,6);
-        list.printLn();
-
-        var firstList = readDoubleLinkedList(new File("firstList.txt"));
-        var secondList = readDoubleLinkedList(new File("secondList.txt"));
-        firstList.addList(secondList);
+//        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
+//        list.add(1);
+//        list.add(1);
+//        list.add(2);
+//        list.add(3);
+//        list.add(5);
+//        list.insertFBeforeE(1000,6);
+//        list.printLn();
+//
+//        var firstList = readDoubleLinkedList(new File("firstList.txt"));
+//        var secondList = readDoubleLinkedList(new File("secondList.txt"));
+//        firstList.addList(secondList);
+        infixToPostfix("");
+        calculatePostfix(new File("4task.txt"));
     }
+
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){
         OwnDoubleLinkedList<Object> resultList = new OwnDoubleLinkedList<>();
@@ -135,18 +140,68 @@ final class Main {
             System.out.println(ex.getMessage());
         }
     }
+    static boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    static void infixToPostfix(String expression) throws IOException {
+        var tokens = expression.split(" ");
+        OwnStack<String> stack = new OwnStack<>();
+        StringBuilder result = new StringBuilder();
+        for (var c:tokens) {
+            if (tryParseInt(c)) {
+                result.append(c).append(" ");
+            }
+            if (Objects.equals(c, "(")) {
+                stack.push(c);
+            }
+            if (Objects.equals(c, ")")) {
+                while (stack.getSize() != 0 && !Objects.equals(stack.peek(), "(")) {
+                    result.append(stack.pop()).append(" ");
+                }
+                stack.pop();
+            }
+            if (isOperator(c)) {
+                while (stack.getSize() != 0 && Priority(stack.peek()) >= Priority(c)) {
+                    result.append(stack.pop()).append(" ");
+                }
+                stack.push(c);
+            }
+        }
+        while (stack.getSize() != 0) result.append(stack.pop()).append(" ");
+        File myFoo = new File("4task.txt");
+        FileWriter fooWriter = new FileWriter(myFoo, false);
+        fooWriter.write(result.toString());
+        fooWriter.close();
+    }
+    static int Priority(String c) {
+        if (Objects.equals(c, "^")) {
+            return 3;
+        } else if (Objects.equals(c, "*") || Objects.equals(c, "/")) {
+            return 2;
+        } else if (Objects.equals(c, "+") || Objects.equals(c, "-")) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    static boolean isOperator(String c) {
+        return Objects.equals(c, "+") || Objects.equals(c, "-") || Objects.equals(c, "*") ||
+                Objects.equals(c, "/") || Objects.equals(c, "^");
+    }
 
     static void doStackOperation(File file){
-
-        try(FileReader reader = new FileReader(file.getAbsolutePath()))
-        {
+        try(FileReader reader = new FileReader(file.getAbsolutePath())) {
             int stepCount = 0;
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
             OwnStack<Object> ownStack = new OwnStack<>();
             for (var i:commands) {
-                if(i.charAt(0) == '1')
-                {
+                if(i.charAt(0) == '1') {
                     ownStack.push(i.split(",")[1]);
                     System.out.println(ownStack.peek());
                     stepCount++;

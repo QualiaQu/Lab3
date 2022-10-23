@@ -44,7 +44,6 @@ public class ExamplesOfDynamicStructures {
         rack.putBox(new Box("1"));
         rack.putBox(new Box("2"));
         rack.putBox(new Box("3"));
-
         System.out.println(rack.takeBox().getContent());*/
     }
 }

@@ -1,6 +1,8 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class ExamplesOfDynamicStructures {
     static OwnStack<Integer> sortStack(OwnStack<Integer> input)
@@ -136,6 +138,35 @@ public class ExamplesOfDynamicStructures {
         System.out.println();
         System.out.println("Sorted Array (Descending)- ");
         tree.inOrderDesc(tree.node);*/
+
+        BoxesRack rack = new BoxesRack();
+        rack.putBox(new Box("1"));
+        rack.putBox(new Box("2"));
+        rack.putBox(new Box("3"));
+
+        System.out.println(rack.takeBox().getContent());
+    }
+}
+class BoxesRack{
+
+    private final Stack<Box> rack;
+    public BoxesRack(){
+        this.rack = new Stack<>();
+    }
+    public void putBox(Box box){
+        rack.push(box);
+    }
+    public Box takeBox(){
+        return rack.pop();
+    }
+}
+class Box{
+    public String getContent() {
+        return content;
+    }
+    public String content;
+    public Box(String content){
+        this.content = content;
     }
 }
 
@@ -168,34 +199,10 @@ class CallCenter{
     }
 }
 
-final class Client {
-    private final String problem;
-
-    Client(String problem) {
-        this.problem = problem;
-    }
-
-    public String problem() {
-        return problem;
-    }
+record Client(String problem) {
 }
 
-final class Product {
-    private final String name;
-    private final double price;
-
-    Product(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public double price() {
-        return price;
-    }
+record Product(String name, double price) {
 }
 
 class ProductReceipt{

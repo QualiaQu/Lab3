@@ -31,6 +31,10 @@ final class Main {
         list.add(5);
         list.insertFBeforeE(1000,6);
         list.printLn();
+
+        var firstList = readDoubleLinkedList(new File("firstList.txt"));
+        var secondList = readDoubleLinkedList(new File("secondList.txt"));
+        firstList.addList(secondList);
     }
 
     static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){

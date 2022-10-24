@@ -5,57 +5,18 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-final class Main {
+public final class Main {
     public static void main(String[] args) throws IOException {
-        /*doStackOperation(new File("inputStack.txt"));
+        infixToPostfix("2 + 2");
         calculatePostfix(new File("4task.txt"));
-        doQueueOperation(new File("inputQueue.txt"));
-        var firstList = readDoubleLinkedList(new File("firstList.txt"));
-        var secondList = readDoubleLinkedList(new File("secondList.txt"));
-        firstList.addList(secondList);
-        firstList.printLn();*/
-        /* task10
-        OwnDoubleLinkedList[] result;
+
         OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
         list.add(1);
+        list.add(1);
         list.add(2);
-        list.add(3);
+        list.add(2);
         list.add(4);
-        result = list.splitByTwo(2);
-        result[0].printLn();
-        System.out.println();
-        result[1].printLn();*/
-//        OwnDoubleLinkedList<Integer> list = new OwnDoubleLinkedList<>();
-//        list.add(1);
-//        list.add(1);
-//        list.add(2);
-//        list.add(3);
-//        list.add(5);
-//        list.insertFBeforeE(1000,6);
-//        list.printLn();
-//
-//        var firstList = readDoubleLinkedList(new File("firstList.txt"));
-//        var secondList = readDoubleLinkedList(new File("secondList.txt"));
-//        firstList.addList(secondList);
-        infixToPostfix("");
-        calculatePostfix(new File("4task.txt"));
-    }
-
-
-    static OwnDoubleLinkedList<Object> readDoubleLinkedList(File file){
-        OwnDoubleLinkedList<Object> resultList = new OwnDoubleLinkedList<>();
-        try(FileReader reader = new FileReader(file.getAbsolutePath()))
-        {
-            Scanner scanner = new Scanner(reader);
-            var objects = scanner.nextLine().split(" ");
-            for (var object: objects){
-                resultList.add(object);
-            }
-        }
-        catch(IOException ex){
-            System.out.println(ex.getMessage());
-        }
-        return resultList;
+        Menu.Start(list);
     }
     static void doQueueOperation(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath()))
@@ -98,14 +59,10 @@ final class Main {
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
             OwnStack<Double> ownStack = new OwnStack<>();
-            for (var i:commands)
-            {
-                if (i.charAt(0) >= '0' && i.charAt(0) <= '9')
-                {
+            for (var i:commands) {
+                if (i.charAt(0) >= '0' && i.charAt(0) <= '9') {
                     ownStack.push(Double.parseDouble(i));
-                }
-                else
-                {
+                } else {
                     switch (i) {
                         case "+" -> ownStack.push(ownStack.pop() + ownStack.pop());
                         case "-" -> {
@@ -193,7 +150,6 @@ final class Main {
         return Objects.equals(c, "+") || Objects.equals(c, "-") || Objects.equals(c, "*") ||
                 Objects.equals(c, "/") || Objects.equals(c, "^");
     }
-
     static void doStackOperation(File file){
         try(FileReader reader = new FileReader(file.getAbsolutePath())) {
             int stepCount = 0;

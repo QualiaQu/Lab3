@@ -1,7 +1,5 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 public class ExamplesOfDynamicStructures {
@@ -26,29 +24,61 @@ public class ExamplesOfDynamicStructures {
         callCenter.newClient(new Client("6"));
         callCenter.printQueue();*/
 
-        /* сортировка бинарным деревом поиска
-        int[] arr = {50, 30, 70, 15, 7, 62, 22, 35, 87, 22, 31};
-        System.out.println("Original array- " + Arrays.toString(arr));
-        Tree tree = new Tree(arr[0]);
-        for(int num : arr){
-            tree.insert(tree.node, num);
-        }
-        System.out.println("Sorted Array (Ascending)- ");
-        tree.inOrder(tree.node);
-        System.out.println();
-        System.out.println("Sorted Array (Descending)- ");
-        tree.inOrderDesc(tree.node);*/
-
         /* стеллаж с коробками
         BoxesRack rack = new BoxesRack();
         rack.putBox(new Box("1"));
         rack.putBox(new Box("2"));
         rack.putBox(new Box("3"));
         System.out.println(rack.takeBox().getContent());*/
+
+        // сортировка бинарным деревом поиска
+        FilmLibrary library = new FilmLibrary();
+        library.add(new Film(2001));
+        library.add(new Film(2000));
+        library.add(new Film(2020));
+
+        int[] arr = new int[library.getList().size()];
+        ArrayList<Film> list = library.getList();
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i).getYearOfRelease();
+        }
+        System.out.println("Года фильмов = " + Arrays.toString(arr));
+        Tree tree = new Tree(arr[0]);
+        for(int num : arr){
+            tree.insert(tree.node, num);
+        }
+        System.out.println("По возрастанию = ");
+        tree.inOrder(tree.node);
+        System.out.println();
+        System.out.println("По убыванию = ");
+        tree.inOrderDesc(tree.node);
     }
 }
-class BoxesRack{
 
+class FilmLibrary{
+    public ArrayList<Film> getList() {
+        return list;
+    }
+
+    private final ArrayList<Film> list;
+    public FilmLibrary(){
+        this.list = new ArrayList<>();
+
+    }
+    public void add(Film film){
+        list.add(film);
+    }
+}
+class Film {
+    private final int yearOfRelease;
+    public int getYearOfRelease() {
+        return yearOfRelease;
+    }
+    public Film(int yearOfRelease){
+        this.yearOfRelease = yearOfRelease;
+    }
+}
+class BoxesRack {
     private final Stack<Box> rack;
     public BoxesRack(){
         this.rack = new Stack<>();

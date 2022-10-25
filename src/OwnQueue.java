@@ -31,12 +31,10 @@ public final class OwnQueue<T>{
         return this.queue.isEmpty();
     }
     public void printFirst(){
-        if (isEmpty()) System.out.println("the queue is empty");
-        else System.out.println(getFirst());;
+        if (!isEmpty()) getFirst();
     }
     public void printLn(){
-        if (isEmpty()) System.out.println("the queue is empty");
-        else {
+        if (!isEmpty()) {
             var temp = this.queue;
             StringBuilder result = new StringBuilder();
             while(temp.getSize() != 0){
@@ -44,7 +42,7 @@ public final class OwnQueue<T>{
                 temp.removeHead();
             }
             result.delete(result.length() - 4, result.length());
-            System.out.println(result);
+            //System.out.println(result);
         }
     }
 

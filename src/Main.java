@@ -1,65 +1,85 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Objects;
+import java.io.*;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.Arrays;
 
-public final class Main {
-    public static void main(String[] args) throws IOException {
-        infixToPostfix("2 + 2");
-        calculatePostfix(new File("4task.txt"));
+final class Main {
+    public static void main(String[] args) {
+        StringBuilder results = new StringBuilder("Объём данных;Время (миллисекунды)\n");
 
-        OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
+        try (FileReader reader = new FileReader((new File("10 млн с пушем.txt")).getAbsolutePath())) {
+            Scanner scanner = new Scanner(reader);
+            String[] commands = scanner.nextLine().split(" ");
+            System.out.println(commands.length);
+            int count = 0;
+            for (int i = 100000; i <= commands.length; i += 100000) {
+                count++;
+                String[] resizedArray = Arrays.copyOf(commands, i);
+                long start = System.currentTimeMillis();
+                System.out.println(count);
+                doDefaultQueueOperation(resizedArray);
+                long end = System.currentTimeMillis();
+                results.append(String.format("%d; %d \n", i, end - start));
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            File myFoo = new File("(DefaultQueue)10 млн с пушем.txt");
+            FileWriter fooWriter = new FileWriter(myFoo, false);
+            fooWriter.write(results.toString());
+            fooWriter.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        /*OwnDoubleLinkedList<Object> list = new OwnDoubleLinkedList<>();
         list.add(1);
         list.add(1);
         list.add(2);
-        list.add(2);
-        list.add(4);
-        Menu.Start(list);
+        list.add(3);
+        list.printLn();
+
+        Menu.Start(list);*/
     }
-    static void doQueueOperation(File file){
-        try(FileReader reader = new FileReader(file.getAbsolutePath()))
-        {
+
+    static void doQueueOperation(File file) {
+        try (FileReader reader = new FileReader(file.getAbsolutePath())) {
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
             OwnQueue<Object> ownQueue = new OwnQueue<>();
-            for (var i:commands)
-            {
-                if(i.charAt(0) == '1')
-                {
+            for (var i : commands) {
+                if (i.charAt(0) == '1') {
                     ownQueue.add(i.split(",")[1]);
                     System.out.println(ownQueue.getLast());
-                }
-                else
-                {
+                } else {
                     switch (i) {
-                            case "2" -> {
-                                if (ownQueue.isEmpty()) System.out.println("the queue is empty");
-                                else {
-                                    var deleted = ownQueue.getFirst();
-                                    ownQueue.removeFirst();
-                                    System.out.println("deleted -> " + deleted);
-                                }
+                        case "2" -> {
+                            if (ownQueue.isEmpty()) System.out.println("the queue is empty");
+                            else {
+                                var deleted = ownQueue.getFirst();
+                                ownQueue.removeFirst();
+                                System.out.println("deleted -> " + deleted);
                             }
-                            case "3" -> ownQueue.printFirst();
-                            case "4" -> System.out.println(ownQueue.isEmpty());
-                            case "5" -> ownQueue.printLn();
+                        }
+                        case "3" -> ownQueue.printFirst();
+                        case "4" -> System.out.println(ownQueue.isEmpty());
+                        case "5" -> ownQueue.printLn();
                     }
                 }
             }
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    static void calculatePostfix(File file){
-        try(FileReader reader = new FileReader(file.getAbsolutePath()))
-        {
+
+    static void calculatePostfix(File file) {
+        try (FileReader reader = new FileReader(file.getAbsolutePath())) {
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
             OwnStack<Double> ownStack = new OwnStack<>();
-            for (var i:commands) {
+            for (var i : commands) {
                 if (i.charAt(0) >= '0' && i.charAt(0) <= '9') {
                     ownStack.push(Double.parseDouble(i));
                 } else {
@@ -92,72 +112,98 @@ public final class Main {
                 }
             }
             System.out.println(ownStack.pop());
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    static boolean tryParseInt(String value) {
-        try {
-            Integer.parseInt(value);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-    static void infixToPostfix(String expression) throws IOException {
-        var tokens = expression.split(" ");
-        OwnStack<String> stack = new OwnStack<>();
-        StringBuilder result = new StringBuilder();
-        for (var c:tokens) {
-            if (tryParseInt(c)) {
-                result.append(c).append(" ");
+
+    static void doStackOperation(String[] commands) {
+        OwnStack<Object> ownStack = new OwnStack<>();
+        for (var i : commands) {
+            if (i.charAt(0) == '1') {
+                ownStack.push(i.split(",")[1]);
+                //System.out.println(ownStack.peek());
             }
-            if (Objects.equals(c, "(")) {
-                stack.push(c);
-            }
-            if (Objects.equals(c, ")")) {
-                while (stack.getSize() != 0 && !Objects.equals(stack.peek(), "(")) {
-                    result.append(stack.pop()).append(" ");
+            switch (i) {
+                case ("2") -> {
+                    if (!ownStack.isEmpty()) ownStack.pop();
                 }
-                stack.pop();
-            }
-            if (isOperator(c)) {
-                while (stack.getSize() != 0 && Priority(stack.peek()) >= Priority(c)) {
-                    result.append(stack.pop()).append(" ");
+                case ("3") -> {
+                    if (!ownStack.isEmpty())  ownStack.peek();
+                        //System.out.println(ownStack.peek());
+                    //else System.out.println("Stack is empty");
                 }
-                stack.push(c);
+                case ("4") -> {
+                    //System.out.println(ownStack.isEmpty());
+                    ownStack.isEmpty();
+                }
+                case ("5") -> {
+                    //System.out.println("------");
+                    ownStack.printLn();
+                    //System.out.println("------");
+                }
             }
         }
-        while (stack.getSize() != 0) result.append(stack.pop()).append(" ");
-        File myFoo = new File("4task.txt");
-        FileWriter fooWriter = new FileWriter(myFoo, false);
-        fooWriter.write(result.toString());
-        fooWriter.close();
     }
-    static int Priority(String c) {
-        if (Objects.equals(c, "^")) {
-            return 3;
-        } else if (Objects.equals(c, "*") || Objects.equals(c, "/")) {
-            return 2;
-        } else if (Objects.equals(c, "+") || Objects.equals(c, "-")) {
-            return 1;
-        } else {
-            return 0;
+    static void doQueueOperation(String[] commands) {
+        OwnQueue<Object> ownQueue = new OwnQueue<>();
+        for (var i : commands) {
+            if (i.charAt(0) == '1') {
+                ownQueue.add(i.split(",")[1]);
+                ownQueue.getLast();
+            } else {
+                switch (i) {
+                    case "2" -> {
+                        if (ownQueue.isEmpty()) continue;
+                        else {
+                            var deleted = ownQueue.getFirst();
+                            ownQueue.removeFirst();
+                            //System.out.println("deleted -> " + deleted);
+                        }
+                    }
+                    case "3" -> ownQueue.printFirst();
+                    //case "4" -> System.out.println(ownQueue.isEmpty());
+                    case "4" -> ownQueue.isEmpty();
+                    case "5" -> ownQueue.printLn();
+                }
+            }
         }
     }
-    static boolean isOperator(String c) {
-        return Objects.equals(c, "+") || Objects.equals(c, "-") || Objects.equals(c, "*") ||
-                Objects.equals(c, "/") || Objects.equals(c, "^");
+    static void doDefaultQueueOperation(String[] commands) {
+        ArrayDeque<Object> queue = new ArrayDeque<>();
+        for (var i : commands) {
+            if (i.charAt(0) == '1') {
+                queue.add(i.split(",")[1]);
+                queue.getLast();
+            } else {
+                switch (i) {
+                    case "2" -> {
+                        if (queue.isEmpty()) continue;
+                        else {
+                            var deleted = queue.getFirst();
+                            queue.removeFirst();
+                            //System.out.println("deleted -> " + deleted);
+                        }
+                    }
+                    case "3" -> {
+                        if (!queue.isEmpty()) queue.getFirst();
+                    }
+                    //case "4" -> System.out.println(ownQueue.isEmpty());
+                    case "4" -> queue.isEmpty();
+                    case "5" -> queue.toString();
+                }
+            }
+        }
     }
-    static void doStackOperation(File file){
-        try(FileReader reader = new FileReader(file.getAbsolutePath())) {
+
+    static void doStackOperation(File file) {
+        try (FileReader reader = new FileReader(file.getAbsolutePath())) {
             int stepCount = 0;
             Scanner scanner = new Scanner(reader);
             var commands = scanner.nextLine().split(" ");
             OwnStack<Object> ownStack = new OwnStack<>();
-            for (var i:commands) {
-                if(i.charAt(0) == '1') {
+            for (var i : commands) {
+                if (i.charAt(0) == '1') {
                     ownStack.push(i.split(",")[1]);
                     System.out.println(ownStack.peek());
                     stepCount++;
@@ -186,8 +232,7 @@ public final class Main {
             }
             System.out.println();
             System.out.println(stepCount);
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }

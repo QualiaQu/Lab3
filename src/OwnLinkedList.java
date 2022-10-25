@@ -20,7 +20,7 @@ public final class OwnLinkedList<T>{
     public void printLn() {
         Node<T> current = head;
         while (current != null) {
-            System.out.println(current.data);
+            //System.out.println(current.data);
             current = current.next;
         }
     }

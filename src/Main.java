@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.Arrays;
+import java.util.*;
 
 final class Main {
     public static void main(String[] args) {
@@ -235,5 +232,58 @@ final class Main {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    static boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    static void infixToPostfix(String expression) throws IOException {
+        var tokens = expression.split(" ");
+        OwnStack<String> stack = new OwnStack<>();
+        StringBuilder result = new StringBuilder();
+        for (var c:tokens) {
+            if (tryParseInt(c)) {
+                result.append(c).append(" ");
+            }
+            if (Objects.equals(c, "(")) {
+                stack.push(c);
+            }
+            if (Objects.equals(c, ")")) {
+                while (stack.getSize() != 0 && !Objects.equals(stack.peek(), "(")) {
+                    result.append(stack.pop()).append(" ");
+                }
+                stack.pop();
+            }
+            if (isOperator(c)) {
+                while (stack.getSize() != 0 && Priority(stack.peek()) >= Priority(c)) {
+                    result.append(stack.pop()).append(" ");
+                }
+                stack.push(c);
+            }
+        }
+        while (stack.getSize() != 0) result.append(stack.pop()).append(" ");
+        File myFoo = new File("4task.txt");
+        FileWriter fooWriter = new FileWriter(myFoo, false);
+        fooWriter.write(result.toString());
+        fooWriter.close();
+    }
+    static int Priority(String c) {
+        if (Objects.equals(c, "^")) {
+            return 3;
+        } else if (Objects.equals(c, "*") || Objects.equals(c, "/")) {
+            return 2;
+        } else if (Objects.equals(c, "+") || Objects.equals(c, "-")) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    static boolean isOperator(String c) {
+        return Objects.equals(c, "+") || Objects.equals(c, "-") || Objects.equals(c, "*") ||
+                Objects.equals(c, "/") || Objects.equals(c, "^");
     }
 }
